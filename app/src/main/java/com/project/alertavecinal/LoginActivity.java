@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnSignIn;
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
+    SignInButton signInButton;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.editText2);
         btnSignIn = findViewById(R.id.button2);
         tvSignUp = findViewById(R.id.textView);
+        signInButton = findViewById(R.id.sign_in_button);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -95,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intSignUp);
             }
         });
+
     }
 
     @Override
