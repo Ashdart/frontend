@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1061124988992",
+    "firebase_url": "https://alerta-vecinal-38411.firebaseio.com",
+    "project_id": "alerta-vecinal-38411",
+    "storage_bucket": "alerta-vecinal-38411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061124988992:android:c8b90624b11136d5553fa5",
+        "android_client_info": {
+          "package_name": "com.project.alertavecinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061124988992-q66i13i5qd3c7fmq3pm18dsdqs7k8lmg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.alertavecinal",
+            "certificate_hash": "1b36705f9c907e3db678e1caddf3c3b36cdfbc2e"
+          }
+        },
+        {
+          "client_id": "1061124988992-nd3l6m85fqrfracrb0ln28jhst3iahq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfunqAZL2TEhM9nYExFymXBfMKQP5Q3_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061124988992-nd3l6m85fqrfracrb0ln28jhst3iahq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
