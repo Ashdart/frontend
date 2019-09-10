@@ -38,22 +38,22 @@ public class MainActivity extends AppCompatActivity {
                 String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
                 if(email.isEmpty()){
-                    emailId.setError("Please enter email id");
+                    emailId.setError("Por favor ingresa un email");
                     emailId.requestFocus();
                 }
                 else  if(pwd.isEmpty()){
-                    password.setError("Please enter your password");
+                    password.setError("Por favor ingresa una contraseña");
                     password.requestFocus();
                 }
                 else  if(email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(MainActivity.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Campos vacios!",Toast.LENGTH_SHORT).show();
                 }
                 else  if(!(email.isEmpty() && pwd.isEmpty())){
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this,"SignUp Unsuccessful, Please Try Again",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this,"Registracion fallida, Por favor intenta nuevamente",Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 startActivity(new Intent(MainActivity.this,HomeActivity.class));
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    Toast.makeText(MainActivity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Ha ocurrido un error!",Toast.LENGTH_SHORT).show();
 
                 }
             }
