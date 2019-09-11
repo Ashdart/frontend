@@ -4,24 +4,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
-    TextView textView;
     FirebaseAuth mFirebaseAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabItem tabItem1, tabItem2, tabItem3;
+    public PageAdapter pageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +45,44 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         };
+
+        tabLayout = findViewById(R.id.tablayout);
+        viewPager = findViewById(R.id.viewpager);
+        tabItem1 = findViewById(R.id.tab1);
+        tabItem1 = findViewById(R.id.tab2);
+        tabItem1 = findViewById(R.id.tab3);
         btnLogout = findViewById(R.id.logout);
-        textView = findViewById(R.id.textView2);
+
+        pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pageAdapter);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+
+                if(tab.getPosition() == 0) {
+                    pageAdapter.notifyDataSetChanged();
+                } else if(tab.getPosition() == 1) {
+                    pageAdapter.notifyDataSetChanged();
+                } else if(tab.getPosition() == 2) {
+                        pageAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +105,6 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
         });
-
-        if (user != null) {
-            textView.setText(user.getDisplayName());
-        }
 
     }
 
