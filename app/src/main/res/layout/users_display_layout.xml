@@ -14,7 +14,7 @@
             android:id="@+id/users_profile_image"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:src="@drawable/profile_image_background">
+            android:src="@mipmap/profile_image_round">
         </de.hdodenhof.circleimageview.CircleImageView>
 
         <LinearLayout
