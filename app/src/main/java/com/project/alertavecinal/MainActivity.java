@@ -2,6 +2,8 @@ package com.project.alertavecinal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp;
     TextView tvSignIn;
     FirebaseAuth mFirebaseAuth;
+    private DatabaseReference rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        rootRef = FirebaseDatabase.getInstance().getReference();
 
         emailId = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
@@ -59,7 +63,12 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this,"Registracion fallida, Por favor intenta nuevamente",Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                                String currentUserId = mFirebaseAuth.getCurrentUser().getUid();
+                                rootRef.child("Users").child(currentUserId).child("direccion").setValue("default");
+                                rootRef.child("Users").child(currentUserId).child("nombre").setValue("default");
+                                rootRef.child("Users").child(currentUserId).child("telefono").setValue("default");
+                                rootRef.child("Users").child(currentUserId).child("imagen").setValue("default");
+                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                             }
                         }
                     });

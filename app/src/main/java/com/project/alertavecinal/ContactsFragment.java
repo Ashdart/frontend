@@ -88,7 +88,7 @@ public class ContactsFragment extends Fragment {
                             holder.userName.setText(profileNombre);
                             holder.userDireccion.setText(profileDireccion);
                             holder.userTelefono.setText(profileTelefono);
-                            Picasso.get().load(userImagen).placeholder(R.drawable.profile_image_background).into(holder.profileImage);
+                            Picasso.get().load(userImagen).placeholder(R.mipmap.profile_image_round).into(holder.profileImage);
                         } else{
                             String profileDireccion = dataSnapshot.child("direccion").getValue().toString();
                             String profileNombre = dataSnapshot.child("nombre").getValue().toString();
