@@ -6,4 +6,9 @@
     tools:context=".GroupFragment">
 
 
+    <ListView
+        android:id="@+id/list_group_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

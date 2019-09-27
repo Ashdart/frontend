@@ -1,23 +1,32 @@
 package com.project.alertavecinal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
@@ -25,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PageAdapter pageAdapter;
+    private DatabaseReference rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-
+        rootRef = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -82,14 +92,58 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         if(item.getItemId() == R.id.main_profile_option){
-
+            Intent profileIntent = new Intent(HomeActivity.this, ProfileActivity.class);
+            startActivity(profileIntent);
         }
 
-        if(item.getItemId() == R.id.main_settings_option){
-
+        if(item.getItemId() == R.id.main_crear_grupo_option){
+            RequestNewGroup();
         }
 
         return true;
+    }
+
+    private void RequestNewGroup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.AlertDialog);
+        builder.setTitle("Ingrese el nombre del grupo :");
+
+        final EditText groupNameField = new EditText(HomeActivity.this);
+
+        groupNameField.setHint("ej. Alerta Familiar");
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String groupName = groupNameField.getText().toString();
+                if(TextUtils.isEmpty(groupName)){
+                    Toast.makeText(HomeActivity.this,"Por favor ingrese el nombre del grupo...",Toast.LENGTH_SHORT).show();
+                } else {
+                    CreateNewGroup(groupName);
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void CreateNewGroup(final String groupName) {
+        String currentUserId = mFirebaseAuth.getCurrentUser().getUid();
+        rootRef.child("Groups").child(currentUserId).child(groupName).setValue("Created").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(HomeActivity.this,groupName + " fue creado con exito!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

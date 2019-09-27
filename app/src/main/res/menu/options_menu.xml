@@ -10,8 +10,8 @@
     </item>
 
     <item
-        android:title="Opciones"
-        android:id="@+id/main_settings_option"
+        android:title="Crear Grupo"
+        android:id="@+id/main_crear_grupo_option"
         app:showAsAction="never">
     </item>
 
