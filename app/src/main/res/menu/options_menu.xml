@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Perfil"
+        android:id="@+id/main_profile_option"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:title="Opciones"
+        android:id="@+id/main_settings_option"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:title="Buscar Contactos"
+        android:id="@+id/main_find_contacts_option"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:title="Cerrar Sesion"
+        android:id="@+id/main_log_out_option"
+        app:showAsAction="never">
+    </item>
+
+
+</menu>
