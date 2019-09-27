@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.onesignal.OneSignal;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
@@ -54,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                OneSignal.setSubscription(false);
                 mFirebaseAuth.signOut();
                 AuthUI.getInstance()
                         .signOut(HomeActivity.this)

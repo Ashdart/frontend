@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.onesignal.OneSignal;
 
+import utils.SendNotification;
+
 public class MainActivity extends AppCompatActivity {
     EditText emailId, password;
     Button btnSignUp;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        new SendNotification("Testing","Notificacion de prueba",null);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
