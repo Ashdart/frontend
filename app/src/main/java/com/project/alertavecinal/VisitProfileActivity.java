@@ -125,12 +125,12 @@ public class VisitProfileActivity extends AppCompatActivity
                             if (request_type.equals("sent"))
                             {
                                 Current_State = "request_sent";
-                                SendMessageRequestButton.setText("Cancelar Solicitud de contacto");
+                                SendMessageRequestButton.setText("Cancelar");
                             }
                             else if (request_type.equals("received"))
                             {
                                 Current_State = "request_received";
-                                SendMessageRequestButton.setText("Aceptar Solicitud de contacto");
+                                SendMessageRequestButton.setText("Aceptar solicitud de contacto");
 
                                 DeclineMessageRequestButton.setVisibility(View.VISIBLE);
                                 DeclineMessageRequestButton.setEnabled(true);
@@ -229,7 +229,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                             {
                                                 SendMessageRequestButton.setEnabled(true);
                                                 Current_State = "new";
-                                                SendMessageRequestButton.setText("Enviar solicitud de Contacto");
+                                                SendMessageRequestButton.setText("Enviar solicitud de contacto");
 
                                                 DeclineMessageRequestButton.setVisibility(View.INVISIBLE);
                                                 DeclineMessageRequestButton.setEnabled(false);
@@ -317,7 +317,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                             {
                                                 SendMessageRequestButton.setEnabled(true);
                                                 Current_State = "new";
-                                                SendMessageRequestButton.setText("Enviar solicitud de Contacto");
+                                                SendMessageRequestButton.setText("Enviar solicitud de contacto");
 
                                                 DeclineMessageRequestButton.setVisibility(View.INVISIBLE);
                                                 DeclineMessageRequestButton.setEnabled(false);
@@ -364,7 +364,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                                                 {
                                                                     SendMessageRequestButton.setEnabled(true);
                                                                     Current_State = "request_sent";
-                                                                    SendMessageRequestButton.setText("Cancelar Solicitud de Contacto");
+                                                                    SendMessageRequestButton.setText("Cancelar");
                                                                 }
                                                             }
                                                         });
