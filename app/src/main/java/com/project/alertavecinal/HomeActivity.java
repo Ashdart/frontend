@@ -88,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         if(item.getItemId() == R.id.main_find_contacts_option){
-
+            SendUserToFindFriendsActivity();
         }
 
         if(item.getItemId() == R.id.main_profile_option){
@@ -101,6 +101,11 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void SendUserToFindFriendsActivity() {
+        Intent findFriendsIntent = new Intent(HomeActivity.this, FindFriendsActivity.class);
+        startActivity(findFriendsIntent);
     }
 
     private void RequestNewGroup() {
