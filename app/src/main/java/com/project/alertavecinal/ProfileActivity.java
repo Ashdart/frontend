@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -111,42 +112,46 @@ public class ProfileActivity extends AppCompatActivity {
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1,1)
                     .start(this);
-            userImagen.setImageURI(imageUri);
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if(resultCode==RESULT_OK){
-                loadingBar.setTitle("Set Profile Image");
-                loadingBar.setMessage("Please wait, your profile image is updating...");
+                loadingBar.setTitle("Establecer imagen de perfil");
+                loadingBar.setMessage("Por favor espere, su imagen de perfil se esta actualizando...");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
 
                 Uri resultUri = result.getUri();
 
-                StorageReference filePath = UserProfileImagesRef.child(currentUserId + ".jpg");
+                final StorageReference filePath = UserProfileImagesRef.child(currentUserId + ".jpg");
 
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(ProfileActivity.this,"Imagen de perfil subida con exito!",Toast.LENGTH_SHORT).show();
-                            final String downloadUri = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
-                            rootRef.child("Users").child(currentUserId).child("imagen").setValue(downloadUri)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                Toast.makeText(ProfileActivity.this,"Imagen de perfil gurdada!",Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }else {
-                                                String message = task.getException().toString();
-                                                Toast.makeText(ProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }
-                                        }
-                                    });
+                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    final String downloadUri = uri.toString();
+                                    rootRef.child("Users").child(currentUserId).child("imagen").setValue(downloadUri)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(ProfileActivity.this,"Imagen de perfil gurdada!",Toast.LENGTH_SHORT).show();
+                                                        loadingBar.dismiss();
+                                                    }else {
+                                                        String message = task.getException().toString();
+                                                        Toast.makeText(ProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                                        loadingBar.dismiss();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
                         } else {
                             String message = task.getException().toString();
                             Toast.makeText(ProfileActivity.this,"Error: " + message,Toast.LENGTH_SHORT).show();
@@ -175,7 +180,7 @@ public class ProfileActivity extends AppCompatActivity {
                             userNombre.setText(retrieveUserName);
                             userDireccion.setText(retrieveUserDireccion);
                             userTelefono.setText(retrieveUserTelefono);
-                            //Picasso.get().load(retrieveProfileImage).into(userImagen);
+                            Picasso.get().load(retrieveProfileImage).into(userImagen);
                         }
                         else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {
@@ -190,7 +195,7 @@ public class ProfileActivity extends AppCompatActivity {
                         else
                         {
                             userNombre.setVisibility(View.VISIBLE);
-                            Toast.makeText(ProfileActivity.this, "Please set & update your profile information...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileActivity.this, "Por favor eliga y actualice su perfil...", Toast.LENGTH_SHORT).show();
                         }
                     }
 

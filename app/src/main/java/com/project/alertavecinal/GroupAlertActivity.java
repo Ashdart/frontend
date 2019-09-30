@@ -22,7 +22,7 @@ public class GroupAlertActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
-        
+
 
         currentGroupName = getIntent().getExtras().get("groupName").toString();
         InitializateFields();
