@@ -1,6 +1,7 @@
 package com.project.alertavecinal;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -73,8 +74,19 @@ public class ContactsFragment extends Fragment {
         FirebaseRecyclerAdapter<Contacts, ContactsViewHolder> adapter
                 = new FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int i, @NonNull Contacts contacts) {
-                String usersIds = getRef(i).getKey();
+            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, final int position, @NonNull Contacts contacts) {
+                String usersIds = getRef(position).getKey();
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        String visit_user_id = getRef(position).getKey();
+                        Intent profileIntent = new Intent(getActivity(), VisitProfileActivity.class);
+                        profileIntent.putExtra("visit_user_id", visit_user_id);
+                        startActivity(profileIntent);
+                    }
+                });
 
                 userRef.child(usersIds).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -88,7 +100,7 @@ public class ContactsFragment extends Fragment {
                             holder.userName.setText(profileNombre);
                             holder.userDireccion.setText(profileDireccion);
                             holder.userTelefono.setText(profileTelefono);
-                            Picasso.get().load(userImagen).placeholder(R.drawable.profile_image_background).into(holder.profileImage);
+                            Picasso.get().load(userImagen).placeholder(R.mipmap.profile_image_round).into(holder.profileImage);
                         } else{
                             String profileDireccion = dataSnapshot.child("direccion").getValue().toString();
                             String profileNombre = dataSnapshot.child("nombre").getValue().toString();

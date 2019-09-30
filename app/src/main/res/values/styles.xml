@@ -20,4 +20,7 @@
     <style name="MyTheme" parent="AppTheme">
         <item name="android:windowBackground"> @android:color/white </item>
     </style>
+
+    <style name="AlertDialog" parent="Theme.MaterialComponents.Light.Dialog">
+    </style>
 </resources>

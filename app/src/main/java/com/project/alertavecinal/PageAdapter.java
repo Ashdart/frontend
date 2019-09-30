@@ -17,12 +17,9 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                InicioFragment inicioFragment = new InicioFragment();
-                return inicioFragment;
-            case 1:
                 GroupFragment groupFragment = new GroupFragment();
                 return groupFragment;
-            case 2:
+            case 1:
                 ContactsFragment contactsFragment = new ContactsFragment();
                 return contactsFragment;
             default:
@@ -32,7 +29,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -45,10 +42,8 @@ public class PageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Inicio";
-            case 1:
                 return "Grupos";
-            case 2:
+            case 1:
                 return "Contactos";
             default:
                 return null;
