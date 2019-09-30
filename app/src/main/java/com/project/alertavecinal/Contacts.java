@@ -2,17 +2,18 @@ package com.project.alertavecinal;
 
 public class Contacts {
 
-    public String nombre, direccion, telefono, imagen;
+    public String nombre, direccion, telefono, imagen, uid;
 
     public Contacts(){
 
     }
 
-    public Contacts(String apellido, String nombre, String direccion, String telefono, String imagen) {
+    public Contacts(String apellido, String nombre, String direccion, String telefono, String imagen, String uid) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.imagen = imagen;
+        this.uid = uid;
     }
 
     public String getNombre() {
@@ -45,5 +46,13 @@ public class Contacts {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
