@@ -19,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     EditText emailId, password;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                                 rootRef.child("Users").child(currentUserId).child("direccion").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("nombre").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("telefono").setValue("default");
-                                rootRef.child("Users").child(currentUserId).child("imagen").setValue("default");
                                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                             }
                         }
