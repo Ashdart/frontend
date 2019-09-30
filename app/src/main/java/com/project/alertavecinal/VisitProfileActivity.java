@@ -154,7 +154,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                             if (dataSnapshot.hasChild(receiverUserID))
                                             {
                                                 Current_State = "friends";
-                                                SendMessageRequestButton.setText("Remover este Contacto");
+                                                SendMessageRequestButton.setText("Eliminar Contacto");
                                             }
                                         }
 
@@ -229,7 +229,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                             {
                                                 SendMessageRequestButton.setEnabled(true);
                                                 Current_State = "new";
-                                                SendMessageRequestButton.setText("Send Message");
+                                                SendMessageRequestButton.setText("Enviar solicitud de Contacto");
 
                                                 DeclineMessageRequestButton.setVisibility(View.INVISIBLE);
                                                 DeclineMessageRequestButton.setEnabled(false);
@@ -277,7 +277,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                                                                 {
                                                                                     SendMessageRequestButton.setEnabled(true);
                                                                                     Current_State = "friends";
-                                                                                    SendMessageRequestButton.setText("Remover este Contacto");
+                                                                                    SendMessageRequestButton.setText("Eliminar Contacto");
 
                                                                                     DeclineMessageRequestButton.setVisibility(View.INVISIBLE);
                                                                                     DeclineMessageRequestButton.setEnabled(false);
