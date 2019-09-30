@@ -1,6 +1,7 @@
 package com.project.alertavecinal;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -73,8 +74,19 @@ public class ContactsFragment extends Fragment {
         FirebaseRecyclerAdapter<Contacts, ContactsViewHolder> adapter
                 = new FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int i, @NonNull Contacts contacts) {
-                String usersIds = getRef(i).getKey();
+            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, final int position, @NonNull Contacts contacts) {
+                String usersIds = getRef(position).getKey();
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        String visit_user_id = getRef(position).getKey();
+                        Intent profileIntent = new Intent(getActivity(), VisitProfileActivity.class);
+                        profileIntent.putExtra("visit_user_id", visit_user_id);
+                        startActivity(profileIntent);
+                    }
+                });
 
                 userRef.child(usersIds).addValueEventListener(new ValueEventListener() {
                     @Override

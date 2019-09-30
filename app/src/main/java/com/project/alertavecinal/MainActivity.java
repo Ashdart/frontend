@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                                 rootRef.child("Users").child(currentUserId).child("direccion").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("nombre").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("telefono").setValue("default");
+                                rootRef.child("Users").child(currentUserId).child("uid").setValue(currentUserId);
                                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                             }
                         }
