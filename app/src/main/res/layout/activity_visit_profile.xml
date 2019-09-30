@@ -107,7 +107,7 @@
         android:background="@color/colorPrimary"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:text="Cancelar invitacion"
+        android:text="Cancelar solicitud"
         android:textAllCaps="false"
         android:visibility="invisible"
         />
