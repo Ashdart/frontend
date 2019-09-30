@@ -45,10 +45,10 @@ public class GroupAlertActivity extends AppCompatActivity {
         InitializateFields();
         avisoDeLLegada = findViewById(R.id.aviso_de_llegada);
 
-        adapter=new ArrayAdapter<String>(this,
+        /*adapter=new ArrayAdapter<String>(this,
                 android.R.layout.lstMensajesGrp,
                 listItems);
-        setListAdapter(adapter);
+        setListAdapter(adapter);*/
 
         avisoDeLLegada.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +69,10 @@ public class GroupAlertActivity extends AppCompatActivity {
     }
 
     //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
-    public void addItems(View v) {
+    /*public void addItems(View v) {
         listItems.add("Clicked : "+clickCounter++);
         adapter.notifyDataSetChanged();
-    }
+    }*/
 
     private void InitializateFields() {
         toolbar = findViewById(R.id.group_alert_layout);
@@ -82,7 +82,6 @@ public class GroupAlertActivity extends AppCompatActivity {
         avisoDeEntradaSegura = findViewById(R.id.aviso_de_entrada_segura);
     }
 
-    }
 
 
 }
