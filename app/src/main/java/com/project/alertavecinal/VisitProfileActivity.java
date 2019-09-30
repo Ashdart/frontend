@@ -125,7 +125,7 @@ public class VisitProfileActivity extends AppCompatActivity
                             if (request_type.equals("sent"))
                             {
                                 Current_State = "request_sent";
-                                SendMessageRequestButton.setText("Cancelar");
+                                SendMessageRequestButton.setText("Cancelar solicitud");
                             }
                             else if (request_type.equals("received"))
                             {
@@ -364,7 +364,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                                                 {
                                                                     SendMessageRequestButton.setEnabled(true);
                                                                     Current_State = "request_sent";
-                                                                    SendMessageRequestButton.setText("Cancelar");
+                                                                    SendMessageRequestButton.setText("Cancelar solicitud");
                                                                 }
                                                             }
                                                         });
