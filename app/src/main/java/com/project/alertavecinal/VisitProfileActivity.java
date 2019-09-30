@@ -139,7 +139,7 @@ public class VisitProfileActivity extends AppCompatActivity
                                     @Override
                                     public void onClick(View view)
                                     {
-                                        CancelChatRequest();
+                                        CancelContactRequest();
                                     }
                                 });
                             }
@@ -184,15 +184,15 @@ public class VisitProfileActivity extends AppCompatActivity
 
                     if (Current_State.equals("new"))
                     {
-                        SendChatRequest();
+                        SendContactRequest();
                     }
                     if (Current_State.equals("request_sent"))
                     {
-                        CancelChatRequest();
+                        CancelContactRequest();
                     }
                     if (Current_State.equals("request_received"))
                     {
-                        AcceptChatRequest();
+                        AcceptContactRequest();
                     }
                     if (Current_State.equals("friends"))
                     {
@@ -243,7 +243,7 @@ public class VisitProfileActivity extends AppCompatActivity
 
 
 
-    private void AcceptChatRequest()
+    private void AcceptContactRequest()
     {
         ContactsRef.child(senderUserID).child(receiverUserID)
                 .child("Contacts").setValue("Saved")
@@ -297,7 +297,7 @@ public class VisitProfileActivity extends AppCompatActivity
 
 
 
-    private void CancelChatRequest()
+    private void CancelContactRequest()
     {
         ContactRequestRef.child(senderUserID).child(receiverUserID)
                 .removeValue()
@@ -332,7 +332,7 @@ public class VisitProfileActivity extends AppCompatActivity
 
 
 
-    private void SendChatRequest()
+    private void SendContactRequest()
     {
         ContactRequestRef.child(senderUserID).child(receiverUserID)
                 .child("request_type").setValue("sent")
