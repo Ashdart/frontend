@@ -3,6 +3,8 @@ package com.project.alertavecinal;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -29,6 +31,7 @@ import com.onesignal.OneSignal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import utils.SendNotification;
 
 public class HomeActivity extends AppCompatActivity {
@@ -103,6 +106,14 @@ public class HomeActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.main_crear_grupo_option){
             RequestNewGroup();
+        }
+
+        if(item.getItemId() == R.id.share_button){
+            String apkpath = "https://www.alertavecinal.com.ar";
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/link");
+            intent.putExtra(Intent.EXTRA_TEXT, apkpath);
+            startActivity(Intent.createChooser(intent, "Compartir en:"));
         }
 
         return true;
