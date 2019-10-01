@@ -9,7 +9,7 @@ public class SendNotification {
 
     public SendNotification(String message, String heading, String notificationKey) {
 
-        notificationKey = "INSERTAR LA notificationKey QUE SE GENERA EN LA BDD"
+        notificationKey = "INSERTAR LA notificationKey QUE SE GENERA EN LA BDD";
 
         try {
             JSONObject notificationContent = new JSONObject("{'contents':{'en':'" + message + "'}," +
