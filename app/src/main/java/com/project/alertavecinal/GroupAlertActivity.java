@@ -1,5 +1,6 @@
 package com.project.alertavecinal;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class GroupAlertActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +49,16 @@ public class GroupAlertActivity extends AppCompatActivity {
                         btnAvisoLlegada.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                new SendNotification(currentUserName + " esta llegando a su domicilio " + currentUserDireccion,"Aviso de llegada",null);
+                                new SendNotification(currentUserName + " esta llegando a su domicilio " + currentUserDireccion,"Aviso de llegada", null);
+                                loadingBar.dismiss();
                             }
                         });
 
                         btnAvisoEntradaSegura.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                new SendNotification(currentUserName + " ha entrado de forma segura a su casa.","Aviso de Entrada Segura",null);
+                                new SendNotification(currentUserName + " ha entrado de forma segura a su casa.","Aviso de Entrada Segura", null);
+                                loadingBar.dismiss();
                             }
                         });
 
@@ -75,5 +79,6 @@ public class GroupAlertActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(currentGroupName);
         btnAvisoLlegada = findViewById(R.id.btnAvisoLleada);
         btnAvisoEntradaSegura = findViewById(R.id.btnAvisoEntradaSegura);
+        loadingBar = new ProgressDialog(this);
     }
 }
