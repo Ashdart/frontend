@@ -33,8 +33,14 @@ public class GroupAlertActivity extends AppCompatActivity {
         btnAvisoLlegada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Notificacion");
                 new SendNotification(currentUserName + " ha llegado a casa.","Aviso de llegada",null);
+            }
+        });
+
+        btnAvisoEntradaSegura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendNotification(currentUserName + " ha entrado de forma segura a su casa.","Aviso de Entrada Segura",null);
             }
         });
 
