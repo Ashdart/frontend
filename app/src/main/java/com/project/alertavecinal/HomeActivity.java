@@ -29,6 +29,8 @@ import com.onesignal.OneSignal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import utils.SendNotification;
+
 public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         initToolbar();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -84,6 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.main_log_out_option){
             mFirebaseAuth.signOut();
+            OneSignal.setSubscription(false);
             Intent intToMain = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intToMain);
         }
