@@ -27,10 +27,12 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.onesignal.OneSignal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import utils.SendNotification;
 
 public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
@@ -44,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         initToolbar();
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -87,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.main_log_out_option){
             mFirebaseAuth.signOut();
+            OneSignal.setSubscription(false);
             Intent intToMain = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intToMain);
         }

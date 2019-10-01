@@ -12,7 +12,7 @@
     </include>
 
     <Button
-        android:id="@+id/aviso_de_llegada"
+        android:id="@+id/btnAvisoLleada"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp"
@@ -20,7 +20,7 @@
         android:text="Aviso de Llegada" />
 
     <Button
-        android:id="@+id/aviso_de_entrada_segura"
+        android:id="@+id/btnAvisoEntradaSegura"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="455dp"
