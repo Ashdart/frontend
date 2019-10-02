@@ -27,5 +27,14 @@
         android:layout_height="wrap_content"
         android:text="Aviso de entrada segura" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mensajes_recycler_list"
+        android:layout_width="396dp"
+        android:layout_height="331dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="57dp" />
+
 
 </RelativeLayout>
