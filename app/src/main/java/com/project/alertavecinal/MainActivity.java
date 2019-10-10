@@ -19,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.onesignal.OneSignal;
 import utils.SendNotification;
 import com.squareup.picasso.Picasso;
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else {
                                 String currentUserId = mFirebaseAuth.getCurrentUser().getUid();
+                                String deviceToken = FirebaseInstanceId.getInstance().getId();
+                                rootRef.child("Users").child(currentUserId).child("device_token").setValue(deviceToken);
                                 rootRef.child("Users").child(currentUserId).child("direccion").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("nombre").setValue("default");
                                 rootRef.child("Users").child(currentUserId).child("telefono").setValue("default");

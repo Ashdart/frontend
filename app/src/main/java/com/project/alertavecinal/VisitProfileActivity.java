@@ -30,7 +30,7 @@ public class VisitProfileActivity extends AppCompatActivity
     private TextView userProfileName, userProfileDireccion, userProfileTelefono;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
 
-    private DatabaseReference UserRef, ContactRequestRef, ContactsRef, NotificationRef;
+    private DatabaseReference rootRef, UserRef, ContactRequestRef, ContactsRef, NotificationRef;
     private FirebaseAuth mAuth;
 
 
@@ -43,6 +43,7 @@ public class VisitProfileActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        rootRef = FirebaseDatabase.getInstance().getReference();
         ContactRequestRef = FirebaseDatabase.getInstance().getReference().child("Contact Requests");
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
         NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");

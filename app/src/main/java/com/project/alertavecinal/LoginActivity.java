@@ -25,6 +25,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     SignInButton signInButton;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 777;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         emailId = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
         btnSignIn = findViewById(R.id.button2);
@@ -91,8 +96,24 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,"Inicio de sesion fallido, Por favor ingresa nuevamenente",Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Intent intToHome = new Intent(LoginActivity.this,HomeActivity.class);
-                                startActivity(intToHome);
+                                String currentUserId = mFirebaseAuth.getCurrentUser().getUid();
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                                if(!currentUserId.isEmpty()){
+                                    userRef.child(currentUserId).child("device_token")
+                                            .setValue(deviceToken)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Intent intToHome = new Intent(LoginActivity.this,HomeActivity.class);
+                                                        startActivity(intToHome);
+                                                    }
+                                                }
+                                            });
+                                }else{
+                                    Toast.makeText(LoginActivity.this,"Testeando",Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     });

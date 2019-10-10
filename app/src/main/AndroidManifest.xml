@@ -16,13 +16,18 @@
         android:roundIcon="@mipmap/ic_lindex_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VisitProfileActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".FindFriendsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".GroupAlertActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".VisitProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FindFriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GroupAlertActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">

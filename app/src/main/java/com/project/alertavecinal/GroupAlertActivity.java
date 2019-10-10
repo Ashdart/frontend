@@ -1,13 +1,18 @@
 package com.project.alertavecinal;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +29,9 @@ public class GroupAlertActivity extends AppCompatActivity {
     private String currentGroupName, currentUserId, currentUserName, currentUserDireccion;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
-    private DatabaseReference rootRef;
+    private DatabaseReference rootRef, contactsRef;
     private ProgressDialog loadingBar;
+    private Button avisoLlegada, entradaSegura;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class GroupAlertActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
 
         currentGroupName = getIntent().getExtras().get("groupName").toString();
+        contactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserId);
         InitializateFields();
 
         rootRef.child("Users").child(currentUserId)
@@ -50,7 +57,6 @@ public class GroupAlertActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 new SendNotification(currentUserName + " esta llegando a su domicilio " + currentUserDireccion,"Aviso de llegada", null);
-                                loadingBar.dismiss();
                             }
                         });
 
@@ -58,7 +64,6 @@ public class GroupAlertActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 new SendNotification(currentUserName + " ha entrado de forma segura a su casa.","Aviso de Entrada Segura", null);
-                                loadingBar.dismiss();
                             }
                         });
 
@@ -72,13 +77,13 @@ public class GroupAlertActivity extends AppCompatActivity {
 
     }
 
-
     private void InitializateFields() {
         toolbar = findViewById(R.id.group_alert_layout);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(currentGroupName);
         btnAvisoLlegada = findViewById(R.id.btnAvisoLleada);
         btnAvisoEntradaSegura = findViewById(R.id.btnAvisoEntradaSegura);
-        loadingBar = new ProgressDialog(this);
+        avisoLlegada = findViewById(R.id.btnAvisoLleada);
+        entradaSegura = findViewById(R.id.btnAvisoEntradaSegura);
     }
 }

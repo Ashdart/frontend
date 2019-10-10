@@ -32,7 +32,6 @@
         android:title="Share"
         android:icon="@drawable/ic_share_icon"
         app:showAsAction="ifRoom">
-
     </item>
 
 </menu>
