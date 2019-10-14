@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +29,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import utils.SendNotification;
 
 public class SospechaActivity extends AppCompatActivity {
 
 
-    private DatabaseReference contactsRef,rootRef,userRef, MensajesRef;
+    private DatabaseReference contactsRef,rootRef,userRef, MensajesRef, vecinoRef;
     private FirebaseAuth mAuth;
     private String currentGroupName,currentUserId, currentUserName, currentUserDireccion, currentUserImagen;
     private RecyclerView recycler_user;
-    private TextView textView4;
+    private TextView textView4,textView5;
     private EditText descripcion;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,9 @@ public class SospechaActivity extends AppCompatActivity {
 
         InitializateFields();
 
-        currentUserName = getIntent().getExtras().get("groupName").toString();
-        currentUserDireccion = getIntent().getExtras().get("groupName").toString();
-        currentUserImagen = getIntent().getExtras().get("groupName").toString();
+        currentUserName = getIntent().getExtras().get("currentUserName").toString();
+        currentUserDireccion = getIntent().getExtras().get("currentUserDireccion").toString();
+        currentUserImagen = getIntent().getExtras().get("currentUserImagen").toString();
         currentGroupName = getIntent().getExtras().get("groupName").toString();
 
         contactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserId);;
@@ -86,12 +89,31 @@ public class SospechaActivity extends AppCompatActivity {
 
                         textView4.setText(visit_user_id);
 
-                        Date currentTime = Calendar.getInstance().getTime();
+                        vecinoRef  = FirebaseDatabase.getInstance().getReference().child("Users").child(visit_user_id);
 
-                        Alerta nAlerta = new Alerta("Aviso de Actitud Sospechosa", currentUserId, currentUserName, currentUserDireccion, visit_user_id, descAlerta, currentGroupName,currentTime , currentUserImagen);
+                        vecinoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //direAlerta = dataSnapshot.child("direccion").getValue().toString();
+                                textView5.setText(dataSnapshot.child("direccion").getValue().toString());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+
+                        });
+
+                        Date currentTime = Calendar.getInstance().getTime();
+                        String direSospecha = textView5.getText().toString();
+                        textView4.setText(direSospecha);
+
+                        Alerta nAlerta = new Alerta("Aviso de Actitud Sospechosa", currentUserId, currentUserName, direSospecha, visit_user_id, descAlerta, currentGroupName,currentTime , currentUserImagen);
                         MensajesRef.push().setValue(nAlerta);
 
-                        finish();
+                        new SendNotification(currentUserName + " ha enviado un alerta de Actividad sospechosa en " + direSospecha,"Aviso de Actitud Sospechosa", null);
+                        loadingBar.dismiss();
+
+                        //finish();
 
                     }
                 });
@@ -160,6 +182,8 @@ public class SospechaActivity extends AppCompatActivity {
     private void InitializateFields() {
         recycler_user = findViewById(R.id.recycler_user);
         textView4 = findViewById(R.id.textView4);
+        textView5 = findViewById(R.id.textView5);
         descripcion = findViewById(R.id.descripcion);
+        loadingBar = new ProgressDialog(this);
     }
 }
