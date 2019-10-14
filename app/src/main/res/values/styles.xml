@@ -18,9 +18,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyTheme" parent="AppTheme">
-        <item name="android:windowBackground"> @android:color/white </item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
-    <style name="AlertDialog" parent="Theme.MaterialComponents.Light.Dialog">
-    </style>
+    <style name="AlertDialog" parent="Theme.MaterialComponents.Light.Dialog"></style>
 </resources>

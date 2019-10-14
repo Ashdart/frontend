@@ -11,21 +11,46 @@
         layout="@layout/app_bar_layout">
     </include>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mensajes_recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="329dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="57dp" />
+
+
     <Button
         android:id="@+id/btnAvisoLleada"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
+        android:layout_width="212dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAvisoEntradaSegura"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="80dp"
         android:text="Aviso de Llegada" />
 
     <Button
         android:id="@+id/btnAvisoEntradaSegura"
-        android:layout_width="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAvisoAlertaSospecha"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="455dp"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:text="Aviso de entrada segura" />
 
+
+
+    <Button
+        android:id="@+id/btnAvisoAlertaSospecha"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Alerta de Sospecha" />
 
 </RelativeLayout>
