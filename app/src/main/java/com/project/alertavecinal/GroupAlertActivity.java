@@ -34,14 +34,13 @@ import utils.SendNotification;
 
 public class GroupAlertActivity extends AppCompatActivity {
 
-    private Button btnAvisoLlegada, btnAvisoEntradaSegura;
+    private Button btnAvisoLlegada, btnAvisoEntradaSegura, btnAvisoAlertaSospecha;
     private String currentGroupName, currentUserId, currentUserName, currentUserDireccion;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
-    private DatabaseReference rootRef;
+    private DatabaseReference rootRef, MensajesRef;
     private ProgressDialog loadingBar;
     private RecyclerView ShowMensajesRecyclerList;
-    private DatabaseReference MensajesRef, LastMensajesRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +55,6 @@ public class GroupAlertActivity extends AppCompatActivity {
 /* COPIANDO CODIGO */
 
         MensajesRef = FirebaseDatabase.getInstance().getReference().child("Mensajes").child(currentGroupName);
-        //Query LastMensajesRef =  FirebaseDatabase.getInstance().getReference().child("Mensajes").orderByChild(currentGroupName).limitToLast(2);
-
 
         ShowMensajesRecyclerList = findViewById(R.id.mensajes_recycler_list);
         ShowMensajesRecyclerList.setLayoutManager(new LinearLayoutManager(this));
@@ -105,6 +102,19 @@ public class GroupAlertActivity extends AppCompatActivity {
                             }
                         });
 
+                        btnAvisoAlertaSospecha.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(GroupAlertActivity.this, SospechaActivity.class);
+                                intent.putExtra("currentUserName", currentUserName);
+                                intent.putExtra("currentUserDireccion", currentUserDireccion);
+                                intent.putExtra("currentUserImagen", currentUserImagen);
+                                intent.putExtra("groupName", currentGroupName);
+                                startActivity(intent);
+
+                            }
+                        });
                     }
 
                     @Override
@@ -138,17 +148,6 @@ public class GroupAlertActivity extends AppCompatActivity {
                         Picasso.get().load(model.getImagen()).placeholder(R.drawable.profile_image).into(holder.profileImage);
 
 
-                        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                String visit_user_id = getRef(position).getKey();
-
-                                Intent profileIntent = new Intent(FindFriendsActivity.this, VisitProfileActivity.class);
-                                profileIntent.putExtra("visit_user_id", visit_user_id);
-                                startActivity(profileIntent);
-                            }
-                        });*/
                     }
 
                     @NonNull
@@ -175,6 +174,7 @@ public class GroupAlertActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(currentGroupName);
         btnAvisoLlegada = findViewById(R.id.btnAvisoLleada);
         btnAvisoEntradaSegura = findViewById(R.id.btnAvisoEntradaSegura);
+        btnAvisoAlertaSospecha = findViewById(R.id.btnAvisoAlertaSospecha);
         loadingBar = new ProgressDialog(this);
     }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Alerta Vecinal</string>
+    <string name="title_activity__send_alerta_sospecha">activity_SendAlertaSospecha</string>
 </resources>
