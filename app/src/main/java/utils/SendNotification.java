@@ -9,7 +9,7 @@ public class SendNotification {
 
     public SendNotification(String message, String heading, String notificationKey) {
 
-        notificationKey = "a2f92471-769f-4877-b51d-94e15d767d02";
+        notificationKey = "7ec55ea4-da59-46ab-8cde-5a549a6d992b";
 
         try {
             JSONObject notificationContent = new JSONObject("{" +

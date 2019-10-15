@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +36,7 @@ public class SospechaActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentGroupName,currentUserId, currentUserName, currentUserDireccion, currentUserImagen;
     private RecyclerView recycler_user;
-    private TextView textView4,textView5;
+    private TextView btnEnviar, btnCancelar;
     private EditText descripcion;
     private ProgressDialog loadingBar;
 
@@ -87,7 +85,7 @@ public class SospechaActivity extends AppCompatActivity {
                         String visit_user_id = getRef(position).getKey();
                         String descAlerta = descripcion.getText().toString();
 
-                        textView4.setText(visit_user_id);
+                        btnEnviar.setText(visit_user_id);
 
                         vecinoRef  = FirebaseDatabase.getInstance().getReference().child("Users").child(visit_user_id);
 
@@ -95,7 +93,7 @@ public class SospechaActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //direAlerta = dataSnapshot.child("direccion").getValue().toString();
-                                textView5.setText(dataSnapshot.child("direccion").getValue().toString());
+                                btnCancelar.setText(dataSnapshot.child("direccion").getValue().toString());
                             }
 
                             @Override
@@ -104,8 +102,8 @@ public class SospechaActivity extends AppCompatActivity {
                         });
 
                         Date currentTime = Calendar.getInstance().getTime();
-                        String direSospecha = textView5.getText().toString();
-                        textView4.setText(direSospecha);
+                        String direSospecha = btnCancelar.getText().toString();
+                        btnEnviar.setText(direSospecha);
 
                         Alerta nAlerta = new Alerta("Aviso de Actitud Sospechosa", currentUserId, currentUserName, direSospecha, visit_user_id, descAlerta, currentGroupName,currentTime , currentUserImagen);
                         MensajesRef.push().setValue(nAlerta);
@@ -146,6 +144,8 @@ public class SospechaActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
+
                 });
             }
 
@@ -181,9 +181,9 @@ public class SospechaActivity extends AppCompatActivity {
 
     private void InitializateFields() {
         recycler_user = findViewById(R.id.recycler_user);
-        textView4 = findViewById(R.id.textView4);
-        textView5 = findViewById(R.id.textView5);
-        descripcion = findViewById(R.id.descripcion);
+        btnEnviar = findViewById(R.id.btnEnviar);
+        btnCancelar = findViewById(R.id.btnCancelar);
+        descripcion = findViewById(R.id.txtDescripcion);
         loadingBar = new ProgressDialog(this);
     }
 }
