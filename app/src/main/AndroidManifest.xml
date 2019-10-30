@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_lindex_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SospechaActivity"></activity>
+        <activity android:name=".addContactGroupActivity"></activity>
+        <activity android:name=".SospechaActivity" />
         <activity
             android:name=".VisitProfileActivity"
             android:screenOrientation="portrait" />

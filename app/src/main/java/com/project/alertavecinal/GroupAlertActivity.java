@@ -41,6 +41,7 @@ public class GroupAlertActivity extends AppCompatActivity {
     private DatabaseReference rootRef, MensajesRef;
     private ProgressDialog loadingBar;
     private RecyclerView ShowMensajesRecyclerList;
+    private Query MensajesRef2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class GroupAlertActivity extends AppCompatActivity {
 /* COPIANDO CODIGO */
 
         MensajesRef = FirebaseDatabase.getInstance().getReference().child("Mensajes").child(currentGroupName);
+        MensajesRef2 = MensajesRef.orderByChild("fechaHora").limitToLast(5);
 
         ShowMensajesRecyclerList = findViewById(R.id.mensajes_recycler_list);
         ShowMensajesRecyclerList.setLayoutManager(new LinearLayoutManager(this));
@@ -133,7 +135,7 @@ public class GroupAlertActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<Alerta> options =
                 new FirebaseRecyclerOptions.Builder<Alerta>()
-                        .setQuery(MensajesRef, Alerta.class)
+                        .setQuery(MensajesRef2, Alerta.class)
                         .build();
 
         FirebaseRecyclerAdapter<Alerta, ShowMensajesViewHolder> adapter =
