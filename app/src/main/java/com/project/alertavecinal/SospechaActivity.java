@@ -82,8 +82,8 @@ public class SospechaActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view)
                     {
-                        String visit_user_id = getRef(position).getKey();
-                        String descAlerta = descripcion.getText().toString();
+                        final String visit_user_id = getRef(position).getKey();
+                        final String descAlerta = descripcion.getText().toString();
 
                         btnEnviar.setText(visit_user_id);
 
@@ -94,31 +94,35 @@ public class SospechaActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //direAlerta = dataSnapshot.child("direccion").getValue().toString();
                                 btnCancelar.setText(dataSnapshot.child("direccion").getValue().toString());
+
+                                Date currentTime = Calendar.getInstance().getTime();
+                                String direSospecha = btnCancelar.getText().toString();
+                                Alerta nAlerta = new Alerta("Aviso de Actitud Sospechosa", currentUserId, currentUserName, direSospecha, visit_user_id, descAlerta, currentGroupName,currentTime , currentUserImagen);
+                                MensajesRef.push().setValue(nAlerta);
+
+                                new SendNotification(currentUserName + " ha enviado un alerta de Actividad sospechosa en " + direSospecha,"Aviso de Actitud Sospechosa", null);
+                                loadingBar.dismiss();
+
+                                finish();
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {}
 
                         });
-
                         Date currentTime = Calendar.getInstance().getTime();
                         String direSospecha = btnCancelar.getText().toString();
                         btnEnviar.setText(direSospecha);
 
                         Alerta nAlerta = new Alerta("Aviso de Actitud Sospechosa", currentUserId, currentUserName, direSospecha, visit_user_id, descAlerta, currentGroupName,currentTime , currentUserImagen);
                         MensajesRef.push().setValue(nAlerta);
-
-                        new SendNotification(currentUserName + " ha enviado un alerta de Actividad sospechosa en " + direSospecha,"Aviso de Actitud Sospechosa", null);
-                        loadingBar.dismiss();
-
-                        //finish();
-
                     }
                 });
 
                 userRef.child(usersIds).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                         if(dataSnapshot.hasChild("imagen")){
                             String userImagen = dataSnapshot.child("imagen").getValue().toString();
                             String profileDireccion = dataSnapshot.child("direccion").getValue().toString();
@@ -129,7 +133,7 @@ public class SospechaActivity extends AppCompatActivity {
                             holder.userDireccion.setText(profileDireccion);
                             holder.userTelefono.setText(profileTelefono);
                             Picasso.get().load(userImagen).placeholder(R.mipmap.profile_image_round).into(holder.profileImage);
-                        } else{
+                        } else if(dataSnapshot.hasChild("direccion")){
                             String profileDireccion = dataSnapshot.child("direccion").getValue().toString();
                             String profileNombre = dataSnapshot.child("nombre").getValue().toString();
                             String profileTelefono = dataSnapshot.child("telefono").getValue().toString();
